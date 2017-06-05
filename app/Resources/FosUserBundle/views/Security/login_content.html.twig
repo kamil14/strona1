@@ -1,0 +1,40 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+
+
+        <nav class="navbar navbar-inverse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                <li class="active"><a href="register">Regulamin</a></li>
+                <li class="active"><a href="register">Kontakt</a></li>
+
+            </ul>
+        </nav>
+
+
+        <div class="jumbotron">
+            <h1>Witaj na mojej stronie!!</h1>
+            <p>Jeżeli nie masz jeszcze konta, zarejestruj sie ! :)</p>
+            <a class="btn btn-lg btn-primary" href="register" role="button">Zarejestruj się</a>
+        </div>
+
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            {% if csrf_token %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            {% endif %}
+
+
+            <input type="text" placeholder="Email" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+
+            <input type="password" placeholder="Hasło" class="form-control" id="password" name="_password" required="required" />
+
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+            <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        </form>
